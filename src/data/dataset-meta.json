@@ -1,0 +1,71 @@
+{
+  "name": "Online Retail II",
+  "publisher": "UCI Machine Learning Repository",
+  "citation": "Chen, D. (2019). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D",
+  "url": "https://archive.ics.uci.edu/dataset/502/online+retail+ii",
+  "license": "CC BY 4.0",
+  "description": "Real transactions of a UK-based online gift-ware retailer (many customers are wholesalers).",
+  "currency": "GBP",
+  "rawLineItems": 1067371,
+  "cleanLineItems": 781932,
+  "outputRows": 36324,
+  "customers": 5839,
+  "orders": 36324,
+  "cleaning": [
+    {
+      "step": "Raw line items (both yearly sheets)",
+      "rows": 1067371
+    },
+    {
+      "step": "Remove invoices duplicated across the two sheets",
+      "rows": 1044848
+    },
+    {
+      "step": "Remove lines without a Customer ID",
+      "rows": 809561
+    },
+    {
+      "step": "Remove cancellation lines",
+      "rows": 791115
+    },
+    {
+      "step": "Remove purchases reversed by a matching cancellation",
+      "rows": 784685
+    },
+    {
+      "step": "Remove non-positive quantity or price",
+      "rows": 784616
+    },
+    {
+      "step": "Remove non-product codes (postage, fees, adjustments, vouchers)",
+      "rows": 781932
+    }
+  ],
+  "categories": [
+    "Bags & Storage",
+    "Garden & Outdoor",
+    "Home D\u00e9cor & Lighting",
+    "Jewellery & Accessories",
+    "Kitchen & Dining",
+    "Other Gifts",
+    "Seasonal & Party",
+    "Stationery & Gift Wrap",
+    "Toys & Kids"
+  ],
+  "categoryMethod": "Derived from product descriptions with ordered keyword rules (scripts/prepare-online-retail.py).",
+  "categoryRevenueShare": {
+    "Kitchen & Dining": 0.2673,
+    "Home D\u00e9cor & Lighting": 0.2227,
+    "Bags & Storage": 0.1261,
+    "Other Gifts": 0.1093,
+    "Seasonal & Party": 0.0854,
+    "Stationery & Gift Wrap": 0.0818,
+    "Garden & Outdoor": 0.049,
+    "Toys & Kids": 0.043,
+    "Jewellery & Accessories": 0.0155
+  },
+  "notes": [
+    "No discount field exists in the source; revenue = quantity x unit price.",
+    "Output is aggregated to one row per order (invoice); line-item detail is summarised as units and categories."
+  ]
+}

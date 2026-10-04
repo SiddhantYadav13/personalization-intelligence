@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Quiet Intelligence palette */
+  --color-canvas: #f7f8fa;
+  --color-subtle: #fafbfc;
+  --color-ink: #111827;
+  --color-ink-2: #64748b;
+  --color-ink-3: #7b8494;
+  --color-line: #e5e7eb;
+  --color-line-2: #f0f1f4;
+  --color-accent: #4f46e5;
+  --color-accent-soft: #f1f1fe;
+  --color-accent-line: #dcdcfb;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    letter-spacing: -0.006em;
+  }
+  ::selection {
+    background: #dcdcfb;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Section label used across pages: small caps, wide tracking */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Dark page band: CSS fallback under the WebGL silk (shown before it fades in, or without WebGL) */
+.band {
+  background-color: #080b16;
+  background-image:
+    radial-gradient(60% 90% at 85% 10%, rgba(120, 92, 242, 0.22), transparent 70%),
+    radial-gradient(45% 70% at 100% 70%, rgba(242, 128, 92, 0.1), transparent 70%),
+    radial-gradient(50% 80% at 55% 0%, rgba(61, 107, 240, 0.16), transparent 70%);
+}
+
+/* Accent border for content boxes: a gradient hairline that is strongest at the
+   top-left corner and fades into the neutral border. --edge / --edge-2 can be
+   overridden per card (e.g. with a segment colour). */
+.card-accent {
+  --edge: rgba(99, 102, 241, 0.75);
+  --edge-2: rgba(167, 139, 250, 0.4);
+  border-color: transparent;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, var(--edge) 0%, var(--edge-2) 38%, #e3e4ec 72%, #e3e4ec 100%) border-box;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+  transition:
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+.card-accent-hover:hover {
+  --edge: rgba(99, 102, 241, 1);
+  --edge-2: rgba(167, 139, 250, 0.6);
+  box-shadow: 0 12px 28px -16px rgba(55, 48, 163, 0.3);
+}
+.card-accent.is-selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Chart cards: a little more presence so the plots draw the eye first */
+.card-chart {
+  --edge: rgba(99, 102, 241, 0.95);
+  --edge-2: rgba(167, 139, 250, 0.55);
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, var(--edge) 0%, var(--edge-2) 42%, #d9dbef 78%, #d9dbef 100%) border-box;
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.04),
+    0 22px 44px -28px rgba(79, 70, 229, 0.38),
+    0 0 0 4px rgba(99, 102, 241, 0.035);
+}
+.card-chart > header {
+  border-radius: 11px 11px 0 0;
+  background: linear-gradient(180deg, rgba(240, 241, 255, 0.85), rgba(255, 255, 255, 0));
+}
+
+/* Soft blue → violet → warm gradient for display text */
+.text-spectrum {
+  background-image: linear-gradient(95deg, #8fb0ff 0%, #a99bff 45%, #e2a0c8 75%, #f4a487 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Recharts: remove default focus outline on SVG surfaces */
+.recharts-wrapper:focus,
+.recharts-surface:focus,
+.recharts-wrapper *:focus {
+  outline: none;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-up {
+  animation: fade-in 0.3s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+  }
+}
